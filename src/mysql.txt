@@ -1,0 +1,343 @@
+creating the database:-
+
+create database mydatabase;
+create database bookingdatabase;
+
+selecting the database:-
+for using the data that we created we apply this method
+
+use mydatabase;
+use bookingdatabase;
+
+deleting the database:-
+for deleting the database we use
+
+drop database mydatabase;
+drop database bookingdatabase;
+
+creating the table;
+for creating the table first we have to create database as
+
+create database firstdatabase;
+
+after that for storing the data in database 
+
+use firstdatabase;
+
+ after that create the table as we like
+first ex:-
+create table Persons (
+PersonID int,
+LastName varchar(255),
+FirstName varchar(255),
+Address varChar(255),
+City varchar(255)
+);
+
+second ex:-
+create table Employee (
+EmployeeID int,
+LastName varchar(255),
+FirstName varchar(255),
+Address varChar(255),
+Age int,
+Salary  decimal(18.2)
+);
+
+third ex:-
+create table Product (
+ProductID int,
+ProductName varchar(255),
+ProductType Char(25),
+ProductCost decimal(12.2)
+);
+
+for checking the table 
+select * from tablename(employee, persons, product);
+
+select* from Persons where personslastname like "sri%";
+insert into Persons values(1, "sri", "subha","8-188, opposite moresupermarket", "hyderabad");
+insert into Persons values(2, "valli", "sri",  "2-18, A appartments, 1st floor", " bangalore");
+insert into Persons(PersonsID, PersonsLastName, PersonsFirstName, PersonsAddress, PersonsCity) values(3, "ruchitha", "sai", "786, opposite shiva temple, 3rd house", "vizag")
+
+
+CREATE TABLE Customer(
+CustomerID int,
+CustomerName varchar(255),
+CustomerAge int,
+CustomerAddress varchar(255),
+CustomerCity varchar(255),
+CustomerPurchasedCost decimal(18,2)
+);
+insert into Customer values (1, 'satya', 23 , '23-345, sri appartments, 1st floor 4thflat,gandhinagar', 'delhi', 2000.00);
+insert into Customer values (2, 'surya', 24 , '23-345, sri appartments, 1st floor 4thflat,gandhinagar', 'hyderabad', 1500.00);
+insert into Customer values (3, 'yoga', 25 , '23-345, sri appartments, 1st floor 4thflat,gandhinagar', 'chennai', 4000.00);
+insert into Customer values (4, 'swathi', 23 , '23-345, sri appartments, 1st floor 4thflat,gandhinagar', 'bangalore', 3000.00);
+insert into Customer values (5, 'kavitha', 24 , '23-345, sri appartments, 1st floor 4thflat,gandhinagar', 'vizag', 1000.00);
+
+select * from Customer;
+
+select * from Customer;
+select CustomerId,CustomerAge,customerName from Customer;
+select CustomerId,CustomerAge,customerName from Customer where CustomerAge = 24;
+select CustomerId,CustomerAge,customerName from Customer where CustomerAge > 23;
+select distinct CustomerAge,CustomerId,CustomerName from Customer;(distint will apply for only one column)
+select count(distinct CustomerAge) from Customer;
+select count(*)from Customer;
+
+
+creating a new table using the existin g table:-
+create table testtable AS select CustomerID, CustomerName,CustomerAge,CustomerCity from Customer;
+select * from testtable;
+
+
+Droping the table :- 
+it will delete the entire table from the existing data base
+drop table testtable;
+
+truncate table:- 
+it will delete the data present in the table but not table
+truncate table testtable;
+select * from testtable;
+
+Alter table:-
+used to add r delete r modify the column in existing table
+for adding columns:- alter table Customer add email varchar(255);
+select * from Customer;
+
+for modifying columns:-
+alter table Customer modify column  email varchar(255);
+select * from Customer;
+
+for deleting the column:- 
+alter table Customer drop email;
+select * from Customer;
+
+constraints:-
+
+not null:- it will not accepte the null values in the column
+create table Persons(
+PersonsID int not null,
+PersonsName varchar(255) not null,
+PersonsGender varchar(6) not null,
+PersonsAge int not null,
+Per1sonsCity varchar(255)
+);
+
+insert into Persons values(1, 'satya', 'female', 23, 'hyderabad');
+insert into Persons values(2, 'swathi', 'female', 25, 'nellore');
+insert into Persons values(3, 'surya', 'male', 43, 'chennai');
+insert into Persons values(4, 'nikhil', 'male', 33, 'hyderabad');
+insert into Persons values(5, 'yoga', 'female', 24, 'chittor');
+insert into Persons values(6, 'kavitha', 'female', 26, 'bangalore');
+
+select * from Persons;
+alter table Persons modify email varchar(255) not null;
+if we add another columns that contains null values it wont accept it gives error as invalid use of null values
+
+unique values:- it gives only unique values
+for multiple columns
+create table Persons(
+PersonsID int not null,
+PersonsName varchar(255) not null,
+PersonsGender varchar(6) not null,
+PersonsAge int not null,
+Per1sonsCity varchar(255),
+constraint uc_Persons unique(PersonsID, PersonsAge)
+);
+
+insert into Persons values(1, 'satya', 'female', 23, 'hyderabad');
+insert into Persons values(2, 'swathi', 'female', 23, 'nellore');
+insert into Persons values(3, 'surya', 'male', 43, 'chennai');
+insert into Persons values(3, 'nikhil', 'male', 33, 'hyderabad');
+insert into Persons values(5, 'yoga', 'female', 24, 'chittor');
+insert into Persons values(5, 'kavitha', 'female', 26, 'bangalore');
+
+select * from Persons;
+for single column
+create table Persons(
+PersonsID int not null,
+PersonsName varchar(255) not null,
+PersonsGender varchar(6) not null,
+PersonsAge int not null,
+Per1sonsCity varchar(255),
+unique(PersonsID)
+);
+
+insert into Persons values(1, 'satya', 'female', 23, 'hyderabad');
+insert into Persons values(2, 'swathi', 'female', 23, 'nellore');
+insert into Persons values(3, 'surya', 'male', 43, 'chennai');
+insert into Persons values(3, 'nikhil', 'male', 33, 'hyderabad');
+insert into Persons values(5, 'yoga', 'female', 24, 'chittor');
+insert into Persons values(5, 'kavitha', 'female', 26, 'bangalore');
+
+select * from Persons;
+
+primary key:-
+it wont accepts the duplicate characters  if they are already existed in the table
+create table Persons(
+PersonsID int not null,
+PersonsName varchar(255) not null,
+PersonsGender varchar(6) not null,
+PersonsAge int not null,
+Per1sonsCity varchar(255),
+primary key(PersonsID)
+);
+
+insert into Persons values(1, 'satya', 'female', 23, 'hyderabad');
+insert into Persons values(2  , 'swathi', 'female', 24, 'nellore');
+insert into Persons values(3, 'surya', 'male', 43, 'chennai');
+insert into Persons values(7, 'nikhil', 'male', 33, 'hyderabad');
+insert into Persons values(5, 'yoga', 'female', 24, 'chittor');
+insert into Persons values(5, 'kavitha', 'female', 26, 'bangalore');
+
+select * from Persons;
+
+
+create table persons(
+personsid int ,
+personsname varchar(255), 
+personsAge int,
+primary key (personsid)
+);
+insert into persons values(1, 'subha', 23);
+insert into persons values(2, 'yoga', 24);
+insert into persons values(3, 'swathi',25);
+insert into persons values(4, 'madhura',26);
+insert into persons values(5, 'kavitha', 23);
+
+create table orders(
+orderid int not null,
+ordernumber int not null,
+personsid int,
+primary key (orderid),
+foreign key (personsid) references persons(personsid) 
+);                                                                                                                                                           
+
+insert into orders values (1, 23421, 3);
+insert into orders values (2, 233461, 3);
+insert into orders values (3, 3454761, 5);
+insert into orders values (4,3452421, 1);
+
+
+CHECK:-
+USED TO LIMIT THE VALUE RANGETHAT CAN BE PLACED IN THE COLUMN
+ CREATE TABLE PERSONS(
+     ID INT NOT NULL,
+     NAME VARCHAR(50) NOT NULL,
+     AGE INT,
+     CITY VARCHAR(25),
+     CHECK(AGE >= 18)
+     );
+
+INSERT INTO PERSONS VALUES(1, 'SUBHA', 24, 'HYDERABAD'),(2,'KAVITHA', 26, 'TIRUPATHI'),(3, 'YOGA', 24, 'BANGALORE');
+SELECT* FROM PERSONS;
+
+IF WE APPLY THE AGE BELOVE 18 IT WONT ACCEPT AND GIVES THE IMMEDIATE ERROR
+
+DEFALUT:-
+
+     CREATE TABLE PERSONS2(
+     ID INT NOT NULL,
+     NAME VARCHAR(50) NOT NULL,
+     AGE INT,
+     CITY VARCHAR(25)   DEFAULT 'HYDEABAD'
+     );
+
+INSERT INTO PERSONS2(ID,NAME,AGE) VALUES(1, 'SUBHA', 24 ),(2,'KAVITHA', 26),(3, 'YOGA', 24);
+
+SELECT * FROM PERSONS2;
+
+AUTO INCREMENT:-
+  CREATE TABLE PERSONS3(
+     ID INT NOT NULL auto_increment ,
+     NAME VARCHAR(50) NOT NULL,
+     AGE INT,
+     CITY VARCHAR(25)   DEFAULT 'HYDEABAD', 
+     PRIMARY KEY(ID)
+     );
+
+INSERT INTO PERSONS3(NAME,AGE) VALUES( 'SUBHA', 24 ),('KAVITHA', 26),('YOGA', 24);
+
+SELECT * FROM PERSONS3;
+
+ORDER BY:-
+     CREATE TABLE CUSTOMERS(
+     CUSID INT, 
+     CUSNAME VARCHAR(30),
+     CUSAGE INT, 
+     PURCHASEDCOST DECIMAL(18,2)
+     );
+    INSERT INTO CUSTOMERS VALUES(1, 'SUBHA', 23, 200.75),(2,'YOGA', 25, 3425.46),(3, 'SWATHI', 25, 54647.50),(4,'KAVITHA', 26, 67448.00);
+    SELECT * FROM CUSTOMERS ORDER BY PURCHASEDCOST DESC;
+
+NULL VALUES:- IT VILL GIVE ONLY TABLE ITSELF WITHOUT ANY VALUES
+     CREATE TABLE CUSTOMERS(
+     CUSID INT, 
+     CUSNAME VARCHAR(30),
+     CUSAGE INT, 
+     PURCHASEDCOST DECIMAL(18,2)
+     );
+    INSERT INTO CUSTOMERS VALUES(1, 'SUBHA', 23, 200.75),(2,'YOGA', 25, 3425.46),(3, 'SWATHI', 25, 54647.50),(4,'KAVITHA', 26, 67448.00);
+    SELECT * FROM CUSTOMERS WHERE CUSAGE IS NULL;
+
+LIMIT:-
+     CREATE TABLE CUSTOMERS(
+     CUSID INT, 
+     CUSNAME VARCHAR(30),
+     CUSAGE INT, 
+     PURCHASEDCOST DECIMAL(18,2)
+     );
+    INSERT INTO CUSTOMERS VALUES(1, 'SUBHA', 23, 200.75),(2,'YOGA', 25, 3425.46),(3, 'SWATHI', 25, 54647.50),(4,'KAVITHA', 26, 67448.00);
+SELECT * FROM CUSTOMERS LIMIT 3;
+ 
+MIN VALUES:-
+     CREATE TABLE CUSTOMERS1(
+     CUSID INT, 
+     CUSNAME VARCHAR(30),
+     CUSAGE INT, 
+     PURCHASEDCOST DECIMAL(18,2)
+     );
+    INSERT INTO CUSTOMERS1 VALUES(1, 'SUBHA', 23, 200.75),(2,'YOGA', 25, 3425.46),(3, 'SWATHI', 25, 54647.50),(4, 'KAVITHA', 35, 854765.00);
+SELECT MIN(PURCHASEDCOST) FROM CUSTOMERS1  WHERE PURCHASEDCOST < 90000;
+SELECT MIN(PURCHASEDCOST) FROM CUSTOMERS1  ;
+SELECT MAX(PURCHASEDCOST) FROM CUSTOMERS1  WHERE PURCHASEDCOST > 60000;
+SELECT MAX(PURCHASEDCOST) FROM CUSTOMERS1  ;
+SELECT COUNT(*) FROM CUSTOMERS WHERE PURCHASEDCOST > 3000  ;
+  SELECT AVG(PURCHASEDCOST) FROM CUSTOMERS WHERE PURCHASEDCOST < 3000;
+  SELECT AVG(*) FROM CUSTOMERS ;
+    SELECT SUM(PURCHASEDCOST) FROM CUSTOMERS2;
+
+LIKE:-
+     CREATE TABLE EMPLOYEE(
+     EMPID INT, 
+     EMPNAME VARCHAR(30),
+     EMPAGE INT, 
+    EMPCITY VARCHAR(30),
+    EMPSALARY DECIMAL(18,0)
+     );
+  INSERT INTO EMPLOYEE VALUES(1, 'SUBHA', 23, 'HYDERABAD', 30000.00);
+  INSERT INTO EMPLOYEE VALUES(2, 'SWATHI', 25, 'VIZAG', 35000.00);
+  INSERT INTO EMPLOYEE VALUES(3, 'MADHURA', 22, 'TIRUPATHI', 60000.00);
+  INSERT INTO EMPLOYEE VALUES(4, 'PAVANI', 18, 'HYDERABAD', 30000.00);
+  INSERT INTO EMPLOYEE VALUES(5, 'RAM', 33, 'BANGALORE', 25000.00);
+  INSERT INTO EMPLOYEE VALUES(6, 'SHARU', 63, 'BANGALORE', 39000.00);
+  INSERT INTO EMPLOYEE VALUES(7, 'CHOWDARY', 33,'CHENNAI', 40000.00);
+  INSERT INTO EMPLOYEE VALUES(8, 'SWETHA', 29, 'HYDERABAD', 20000.00);
+
+SELECT * FROM EMPLOYEE WHERE EMPNAME LIKE 'S%' ;
+SELECT * FROM EMPLOYEE WHERE EMPNAME LIKE '%A' ;
+SELECT * FROM EMPLOYEE WHERE EMPNAME LIKE '%HA%' ;
+SELECT * FROM EMPLOYEE WHERE EMPNAME LIKE '_H%' ;
+SELECT * FROM EMPLOYEE WHERE EMPNAME LIKE 'S_%' ;
+SELECT * FROM EMPLOYEE WHERE EMPNAME LIKE 'S__%' ;
+SELECT * FROM EMPLOYEE WHERE EMPNAME LIKE 'S%A' ;
+
+IN:- SELECT * FROM EMPLOYEE WHERE EMPCITY IN ('HYDERABAD', 'CHENNAI');
+BETWEEN :- SELECT * FROM EMPLOYEE WHERE EMPSALARY BETWEEN 20000 AND 40000;
+
+ALIAS:- IT CHANGES THE COLUMN NAME WITH LATEST NAME
+SELECT EMPSALARY  AS SALARY FROM EMPLOYEE;
+
+HAVING:-SELECT * FROM EMPLOYEE HAVING EMPSALARY > 30000;
+GROUP BY:-SELECT COUNT(EMPID), EMPCITY FROM EMPLOYEE GROUP BY EMPCITY;
